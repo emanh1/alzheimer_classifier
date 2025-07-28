@@ -1,6 +1,10 @@
 # Alzheimer MRI Volume Classifier
+![Brain](.github/brain.gif)
 
 This project implements a deep learning pipeline for classifying Alzheimer's disease from 3D MRI brain scan volumes. The workflow includes data preprocessing, 3D volume construction, model training, and evaluation. 
+
+## Dataset
+- [OASIS Alzheimer's Detection](https://www.kaggle.com/datasets/ninadaithal/imagesoasis)
 
 ## Project Structure
 
@@ -36,6 +40,21 @@ This project implements a deep learning pipeline for classifying Alzheimer's dis
 
 6. **Visualization**
    - Use `visualize.py` to inspect 3D MRI volumes interactively with napari.
+
+## Results
+<img src=".github/training_plot.png" alt="training plot" width="400"/>
+<img src=".github/confusion_matrix.png" alt="confusion matrix" width="400"/>
+
+
+
+| Class        | Precision | Recall | F1-score | Support |
+|--------------|-----------|--------|----------|---------|
+| **Alzheimer**| 0.62      | 0.89   | 0.73     | 63      |
+| **Healthy**  | 0.96      | 0.83   | 0.89     | 206     |
+|              |           |        |          |         |
+| **Accuracy** |           |        | **0.84** | 269     |
+| **Macro avg**| 0.79      | 0.86   | 0.81     | 269     |
+| **Weighted avg** | 0.88  | 0.84   | 0.85     | 269     |
 
 ## Requirements
 
