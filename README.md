@@ -1,45 +1,44 @@
 # Alzheimer MRI Volume Classifier
 ![Brain](.github/brain.gif)
 
-This project implements a deep learning pipeline for classifying Alzheimer's disease from 3D MRI brain scan volumes. The workflow includes data preprocessing, 3D volume construction, model training, and evaluation. 
+This project implements a deep learning pipeline for classifying Alzheimer's disease from 3D MRI brain scan volumes, with experiment tracking using MLflow. The workflow covers data preprocessing, volume construction, model training, evaluation, visualization, and experiment management.
 
 ## Dataset
 - [OASIS Alzheimer's Detection](https://www.kaggle.com/datasets/ninadaithal/imagesoasis)
 
 ## Project Structure
 
-- `volume_metadata.csv` - Metadata for all volumes
-- `train_volume.csv`, `val_volume.csv` - Train/validation splits
-- `best_model.pt` - Saved best model weights
-- `volume_classifier.ipynb` - Main notebook for data processing, model training, and evaluation
-- `visualize.py` - Script to visualize 3D MRI volumes using napari
-- `download.sh` - Script to download dataset
+- `src/` — Source code (data, model, training, visualization)
+- `notebooks/volume_classifier.ipynb` — Main notebook for workflow
+- `volume_metadata.csv`, `train_volume.csv`, `val_volume.csv` — Metadata and splits
+- `best_model.pt` — Saved model weights
+- `download.sh` — Dataset download script
 
 ## Main Steps
 
 1. **Data Preparation**
-   - Slices are grouped into 3D volumes per subject.
-   - Volumes are saved as `.pt` files and metadata is stored in CSVs.
+   - Group MRI slices into 3D volumes per subject
+   - Save volumes as `.pt` files; store metadata in CSVs
 
-2. **Dataset and DataLoader**
-   - Custom PyTorch `Dataset` loads 3D volumes and labels from CSVs.
-   - Data is split into training and validation sets.
+2. **Dataset & DataLoader**
+   - Custom PyTorch `Dataset` loads volumes and labels
+   - Train/validation split via CSVs
 
 3. **Model**
-   - A small 3D CNN is defined for binary classification (Alzheimer vs. Healthy).
-   - Optionally, a pretrained 3D ResNet can be used.
+   - 3D CNN for binary classification (Alzheimer vs. Healthy)
+   - Optionally use pretrained 3D ResNet
 
-4. **Training**
-   - Weighted cross-entropy loss to handle class imbalance.
-   - Training loop with early stopping and learning rate scheduling.
-   - Best model is saved automatically.
+4. **Training & Experiment Tracking**
+   - Weighted cross-entropy loss for class imbalance
+   - Early stopping, LR scheduling, best model saving
+   - **MLflow** is used to log parameters, metrics, model artifacts, and training curves for each experiment. You can view and compare runs in the MLflow UI.
 
 5. **Evaluation**
-   - Classification report and confusion matrix are generated on the validation set.
-   - Training/validation loss curves are plotted.
+   - Classification report, confusion matrix, loss curves
+   - Metrics and artifacts are logged to MLflow
 
 6. **Visualization**
-   - Use `visualize.py` to inspect 3D MRI volumes interactively with napari.
+   - Interactive 3D volume inspection with napari (`visualize.py`)
 
 ## Results
 <img src=".github/training_plot.png" alt="training plot" width="400"/>
@@ -61,7 +60,7 @@ This project implements a deep learning pipeline for classifying Alzheimer's dis
 Install dependencies with:
 
 ```bash
-pip install torch torchvision scikit-learn pandas matplotlib tqdm pillow napari
+pip install torch torchvision scikit-learn pandas matplotlib tqdm pillow napari mlflow
 ```
 
 ## Usage
